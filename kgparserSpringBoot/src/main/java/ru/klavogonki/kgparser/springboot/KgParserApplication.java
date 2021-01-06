@@ -17,6 +17,7 @@ import ru.klavogonki.kgparser.export.IndexPageExporter;
 import ru.klavogonki.kgparser.export.PlayersByRankExporter;
 import ru.klavogonki.kgparser.export.Top500PagesExporter;
 import ru.klavogonki.kgparser.export.TopBySpeedExporter;
+import ru.klavogonki.kgparser.export.vocabulary.CharsTopExporter;
 import ru.klavogonki.kgparser.jsonParser.entity.PlayerEntity;
 import ru.klavogonki.kgparser.jsonParser.entity.PlayerVocabularyStatsEntity;
 import ru.klavogonki.kgparser.jsonParser.mapper.PlayerMapper;
@@ -58,6 +59,9 @@ public class KgParserApplication implements CommandLineRunner {
 	@Autowired
 	private PlayersByRankExporter playersByRankExporter;
 
+	@Autowired
+	private CharsTopExporter charsTopExporter;
+
 	// todo: autowire it, @see https://mapstruct.org/documentation/stable/reference/html/#using-dependency-injection
 	private final PlayerMapper mapper = Mappers.getMapper(PlayerMapper.class);
 
@@ -93,26 +97,31 @@ public class KgParserApplication implements CommandLineRunner {
 		// todo: select mode (what to do) by arguments
 		// todo: add an option to skip Excel import
 
+		charsTopExporter.export(context);
+		if (true) {
+			return;
+		}
+
+		playersByRankExporter.export(context);
 /*
 		if (true) {
 			return;
 		}
 */
 
-		playersByRankExporter.export(context);
-		if (true) {
-			return;
-		}
-
 		top500PagesExporter.export(context);
+/*
 		if (true) {
 			return;
 		}
+*/
 
 		indexPageExporter.export(context);
+/*
 		if (true) {
 			return;
 		}
+*/
 
 		topBySpeedExporter.export(context);
 		if (true) {
