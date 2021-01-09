@@ -1,6 +1,7 @@
 package ru.klavogonki.kgparser.http;
 
 import ru.klavogonki.kgparser.Car;
+import ru.klavogonki.kgparser.Dictionary;
 import ru.klavogonki.kgparser.Player;
 
 /**
@@ -93,6 +94,26 @@ public class UrlConstructor
 	 */
 	public static String userStatistics(final int playerId) {
 		return getLink("/u/#/%d/stats/", playerId);
+	}
+
+	/**
+	 * Статистика по словарю
+	 * @param playerId id игрока
+	 * @param vocabularyCode {@link Dictionary#getCode код словаря}
+	 * @return ссылка на статистику игрока по словарю
+	 */
+	public static String userStatsByVocabulary(final int playerId, final String vocabularyCode) {
+		return getLink("/u/#/%s/stats/%s/", playerId, vocabularyCode);
+	}
+
+	/**
+	 * Статистика по словарю
+	 * @param playerId id игрока
+	 * @param vocabularyCode {@link Dictionary#getCode код словаря}
+	 * @return ссылка на статистику игрока по словарю без символа {@code #}. Ссылки с {@code #} не открываются из Excel.
+	 */
+	public static String userStatsByVocabularyWithoutHash(final int playerId, final String vocabularyCode) {
+		return getLink("/profile/%s/stats/?gametype=%s", playerId, vocabularyCode);
 	}
 
 	// dictionaries
